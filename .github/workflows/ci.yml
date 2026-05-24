@@ -1,30 +1,38 @@
 name: CI Pipeline
 
 on:
+
   push:
+
     branches: [ main, task-1 ]
+
   pull_request:
 
 jobs:
+
   build:
-    runs-on: ubuntu-latest
+
+    runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.10
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with: 
 
-    - name: Lint with flake8
-      run: |
-        flake8 src/
+          python-version: '3.11.5'
 
-    - name: Run tests
-      run: |
-        pytest tests/
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Lint with flake8
+        run: |
+          flake8 src/
+
+      - name: Run tests
+        run: |
+          pytest tests/
